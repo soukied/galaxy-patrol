@@ -4,6 +4,7 @@
 # <Panah Kanan> Bergerak ke kanan
 # <Panah Kiri>  Bergerak ke kiri
 # <Spasi>       Menembakkan laser
+# <Esc>         Jeda permainan
 
 # [Tips]
 # -Kamu akan mendapatkan skor setiap 3 detik.
@@ -12,3 +13,5 @@
 # -Setiap musuh yang dikalahkan akan 
 #  menjatuhkan item upgrade secara acak.
 # -Bertahanlah selama yang kamu mampu.
+
+# Selamat Bermain!
