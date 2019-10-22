@@ -1,8 +1,8 @@
-package soukied.game.test.states;
+package com.soukied.game.states;
 
 import java.awt.Graphics2D;
 
-import soukied.game.test.State;
+import com.soukied.game.State;
 
 public class helpState extends State {
 

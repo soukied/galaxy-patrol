@@ -1,4 +1,4 @@
-package soukied.game.test.states;
+package com.soukied.game.states;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -7,10 +7,10 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import soukied.game.test.Entity;
-import soukied.game.test.Game;
-import soukied.game.test.State;
-import soukied.game.test.Util;
+import com.soukied.game.Entity;
+import com.soukied.game.Game;
+import com.soukied.game.State;
+import com.soukied.game.Util;
 
 public class gameState extends State {
 	

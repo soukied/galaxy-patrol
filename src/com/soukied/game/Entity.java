@@ -1,4 +1,4 @@
-package soukied.game.test;
+package com.soukied.game;
 
 public class Entity {
 

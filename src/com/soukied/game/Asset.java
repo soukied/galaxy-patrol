@@ -1,4 +1,4 @@
-package soukied.game.test;
+package com.soukied.game;
 
 import java.awt.Font;
 

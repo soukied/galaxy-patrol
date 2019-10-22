@@ -1,10 +1,11 @@
-package soukied.game.test;
+package com.soukied.game;
 
 import java.awt.Graphics2D;
-import soukied.game.test.states.aboutState;
-import soukied.game.test.states.gameState;
-import soukied.game.test.states.helpState;
-import soukied.game.test.states.menuState;
+
+import com.soukied.game.states.aboutState;
+import com.soukied.game.states.gameState;
+import com.soukied.game.states.helpState;
+import com.soukied.game.states.menuState;
 
 public abstract class State {
 

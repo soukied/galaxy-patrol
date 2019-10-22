@@ -1,13 +1,13 @@
-package soukied.game.test.states;
+package com.soukied.game.states;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
-import soukied.game.test.Asset;
-import soukied.game.test.Game;
-import soukied.game.test.State;
-import soukied.game.test.Util;
+import com.soukied.game.Asset;
+import com.soukied.game.Game;
+import com.soukied.game.State;
+import com.soukied.game.Util;
 
 public class menuState extends State {
 
