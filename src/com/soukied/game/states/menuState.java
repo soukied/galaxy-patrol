@@ -151,5 +151,4 @@ public class menuState extends State {
 		else if (keyCode == KeyEvent.VK_ENTER)
 			KEY_ENTER = false;
 	}
-	
 }
