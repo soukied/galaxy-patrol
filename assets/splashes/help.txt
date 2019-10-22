@@ -7,8 +7,8 @@
 
 # [Tips]
 # -Kamu akan mendapatkan skor setiap 3 detik.
-# -Tembaklah asteroid untuk mendapatkan satu 
-#  skor.
+# -Tembaklah asteroid dan musuh untuk 
+#  mendapatkan satu skor.
 # -Setiap musuh yang dikalahkan akan 
 #  menjatuhkan item upgrade secara acak.
-# -Bertahanlah selama mungkin
+# -Bertahanlah selama yang kamu mampu.
