@@ -1,0 +1,21 @@
+// Permainan ini dikembangkan oleh
+// Adhya Adam Sulthan [11191003] sebagai bagian
+// dari rangkaian kegiatan expo kampus ITK.
+
+// Booth INFORMATIKA 19.
+
+// Instagram : @shtty_head
+// GitHub    : soukied
+// Discord   : soukied#3969
+// Steam     : soukied 
+
+// Dikembangkan dengan bahasa pemrograman
+// Java tanpa menggunakan library.
+
+while(!success) {
+    try {
+        doYourBest();
+    } catch(Exception experience) {
+        learnFromPast();
+    }
+}
