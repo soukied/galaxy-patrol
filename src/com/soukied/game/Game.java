@@ -14,7 +14,7 @@ public class Game extends Canvas implements Runnable {
 	public static final int WIDTH = HEIGHT * 10 / 9;
 	public static final int FPS = 60;
 	public static final int SCALE = 4;
-	public static final String TITLE = "Patroli Galaksi versi 0.0.1 alpha";
+	public static final String TITLE = "Galaxy Patrol versi 0.0.1 alpha";
 	
 	private static JFrame window;
 	public static boolean isFocused() {

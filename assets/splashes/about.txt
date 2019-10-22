@@ -10,7 +10,8 @@
 // Steam     : soukied 
 
 // Dikembangkan dengan bahasa pemrograman
-// Java tanpa menggunakan library.
+// Java tanpa menggunakan library atau
+// game engine.
 
 while(!success) {
     try {

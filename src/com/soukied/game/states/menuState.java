@@ -92,7 +92,7 @@ public class menuState extends State {
 		// menu title
 		g.setColor(Color.RED);
 		g.setFont(Asset.LunchtimeFont.deriveFont(15f));
-		Util.drawStringToCenter(g, "Patroli Galaksi", offsetY += 40);
+		Util.drawStringToCenter(g, "Galaxy Patrol", offsetY += 40);
 	
 		// menu options
 		g.setFont(Asset.JoystixFont.deriveFont(8f));
