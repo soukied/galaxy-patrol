@@ -11,8 +11,8 @@ import com.soukied.game.Util;
 
 public class aboutState extends State {
 
-	boolean ENTER_PRESSED = true;
-	String print = "";
+	private boolean ENTER_PRESSED = true;
+	private String print = "";
 	
 	public void init() {
 		
@@ -22,11 +22,9 @@ public class aboutState extends State {
 	int tick = 0;
 	int charIndex = 0;
 	public void update() {
-		if(tick % (int)(Game.FPS/30) == 0) {
-			
-			if (charIndex < Asset.aboutText.length()) {
+		if(tick % (int)(Game.FPS/50) == 0) {
+			if (charIndex < Asset.aboutText.length()) 
 				print += Asset.aboutText.charAt(charIndex++);
-			}
 		}
 		
 			tick++;

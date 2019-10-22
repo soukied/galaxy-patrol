@@ -32,11 +32,8 @@ public class menuState extends State {
 		return currentOption == option ? SELECTED : UNSELECTED;
 	}
 	
-	// create a function to render text to the center of the screen
-	
 	private void optionEnter() {
 		if (currentOption == OPTION_START) {
-			State.resetAboutState();
 			State.setState(State.GAME_STATE);
 		}
 		else if (currentOption == OPTION_HELP) {
