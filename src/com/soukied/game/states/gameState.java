@@ -1,12 +1,12 @@
 package com.soukied.game.states;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.soukied.game.Asset;
 import com.soukied.game.Entity;
 import com.soukied.game.Game;
 import com.soukied.game.State;
@@ -114,7 +114,7 @@ public class gameState extends State {
 				if (star.getY() >= Game.HEIGHT) star.setY(-star.getHeight());
 			}
 			
-			int playerMovVel = 3;
+			int playerMovVel = 2;
 			
 			if (keys.get("UP")) player.moveY(playerMovVel * -1);
 			if (keys.get("DOWN")) player.moveY(playerMovVel);
@@ -195,7 +195,7 @@ public class gameState extends State {
 		
 		// scoring system
 		g.setColor(Color.YELLOW);
-		g.setFont(new Font("Consolas",Font.BOLD, 4));
+		g.setFont(Asset.JoystixFont.deriveFont(4f));
 		g.drawString("Score : " + SCORE, 2, 5);
 	
 		
