@@ -24,6 +24,10 @@ public class Util {
 		g.drawString(text, (Game.WIDTH/2) - (getWidth(g, text)/2), y);
 	}
 	
+	public static void drawStringToRight(Graphics g, String text, int y) {
+		g.drawString(text, Game.WIDTH - getWidth(g, text) - 2, g.getFontMetrics().getHeight() + y);
+	}
+	
 	public static int getWidth(Graphics g, String text) {
 		return g.getFontMetrics().stringWidth(text);
 	}
