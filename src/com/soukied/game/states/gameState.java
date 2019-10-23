@@ -42,13 +42,11 @@ public class gameState extends State {
 	}
 	
 	int getRandom(int num) {
-		double range = Math.random() * (num + 1);
-		return (int)range;
+		return (int)(Math.random() * (num + 1));
 	}
 	
 	int getRandom(int num1, int num2) {
-		double range = Math.random() * ((num2 - num1) + 1);
-		return (int) (num1 + range);
+		return (int) (num1 + (Math.random() * ((num2 - num1) + 1)));
 	}
 	
 	
@@ -64,7 +62,7 @@ public class gameState extends State {
 		// initialize stars
 		for (int i = 0; i < stars.length; i++) {
 			int starSize = 1;
-			Entity star = new Entity(getRandom(Game.WIDTH-starSize), getRandom(Game.HEIGHT-starSize));
+			Entity star = new Entity(getRandom(Game.WIDTH - starSize), getRandom(Game.HEIGHT - starSize));
 			star.setSize(starSize);
 			stars[i] = star;
 		}
