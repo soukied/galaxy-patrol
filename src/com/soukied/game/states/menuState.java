@@ -35,6 +35,7 @@ public class menuState extends State {
 	private void optionEnter() {
 		if (currentOption == OPTION_START) {
 			State.setState(State.GAME_STATE);
+			Asset.menuSong.stop();
 		}
 		else if (currentOption == OPTION_HELP) {
 			State.resetHelpState();
@@ -51,17 +52,20 @@ public class menuState extends State {
 	private void optionUp() {
 		currentOption--;
 		if (currentOption < 0) currentOption = 0;
+		else Asset.optionSelectSound.play();
 	}
 	
 	private void optionDown() {
 		currentOption++;
 		if (currentOption > OPTION_EXIT) currentOption = OPTION_EXIT;
+		else Asset.optionSelectSound.play();
 	}
 	
 	// init
 	@Override
 	public void init() {
-		
+		Asset.menuSong.setLoop();
+		Asset.menuSong.play();
 	}
 	
 	// update

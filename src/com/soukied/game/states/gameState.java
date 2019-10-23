@@ -49,8 +49,10 @@ public class gameState extends State {
 		return (int) (num1 + (Math.random() * ((num2 - num1) + 1)));
 	}
 	
-	
+	@Override
 	public void init() {
+		Asset.gameSong.setLoop();
+		Asset.gameSong.play();
 		
 		Util.gamePrint("Permainan dimulai");
 		
@@ -266,6 +268,7 @@ public class gameState extends State {
 			isPaused = !isPaused;
 		} else if (keyCode == KeyEvent.VK_ENTER && isLost && !keys.get("ENTER")) {
 			keys.put("ENTER", true);
+			Asset.gameSong.stop();
 			State.setState(State.MENU_STATE);
 			State.resetGameState();
 		}

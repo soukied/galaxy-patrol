@@ -32,6 +32,7 @@ public class Game extends Canvas implements Runnable {
 		window.setVisible(true);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		Asset.Init();
 		State.setState(State.MENU_STATE);
 		
 		window.addKeyListener(new keyboardEv());
