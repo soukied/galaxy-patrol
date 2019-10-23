@@ -15,6 +15,7 @@ import com.soukied.game.Util;
 public class gameState extends State {
 	
 	private HashMap<String, Boolean> keys = new HashMap<String, Boolean>();
+
 	private Entity player;
 	private Entity[] stars = new Entity[50];
 	private ArrayList<Entity> bullets = new ArrayList<Entity>(); 
