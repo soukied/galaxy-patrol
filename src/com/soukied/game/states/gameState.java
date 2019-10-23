@@ -23,6 +23,9 @@ public class gameState extends State {
 	private int bulletVelX = -5;
 	private int SCORE = 0;
 	private boolean isLost = false;
+	private boolean isPaused = false;
+	
+	private int HEALTH = 3;
 	
 	void shootBullet() {
 		Entity newBullet = new Entity(player.getX() + player.getWidth() / 2, player.getY());
@@ -72,6 +75,9 @@ public class gameState extends State {
 		keys.put("LEFT", false);
 		keys.put("RIGHT", false);
 		keys.put("SPACE" , false);
+		keys.put("ESCAPE" , false);
+		keys.put("ENTER" , false);
+
 	}
 	
 	int velX = getRandomVel();
@@ -81,13 +87,25 @@ public class gameState extends State {
 	int tick = 0;
 	int bulletCooldown = 0;
 	public void update() {
-		if (Game.isFocused() && !isLost) {
+		if (Game.isFocused() && !isLost && !isPaused) {
+			
+			if (HEALTH < 1) isLost = true;
+			
 			tick++;
 			
 			// player movement event		
 			for (int i = 0 ; i < bullets.size(); i++) {
 				Entity bullet = bullets.get(i);
 				bullet.moveY(bulletVelX);
+				
+				for (int j = 0; j < asteroids.size(); j++) {
+					Entity asteroid = asteroids.get(j);
+					if (asteroid.isCollide(bullet)) {
+						SCORE++;
+						asteroids.remove(j);
+						bullets.remove(i);
+					}
+				}
 				
 				if (bullet.getX() + bullet.getWidth() < 0)
 					bullets.remove(i);
@@ -122,6 +140,15 @@ public class gameState extends State {
 			if (keys.get("RIGHT")) player.moveX(playerMovVel);
 			if (keys.get("LEFT")) player.moveX(playerMovVel * -1);
 		
+			
+			// collison checker
+			for (int i = 0; i < asteroids.size(); i++) {
+				Entity asteroid = asteroids.get(i);
+				if (player.isCollide(asteroid)) {
+					asteroids.remove(i);
+					HEALTH--;
+				}
+			}
 			
 			if (keys.get("SPACE")) {
 				if (bulletCooldown % (int)(60/5) == 0)
@@ -196,15 +223,31 @@ public class gameState extends State {
 		
 		// scoring system
 		g.setColor(Color.YELLOW);
-		g.setFont(Asset.JoystixFont.deriveFont(4f));
-		g.drawString("Score : " + SCORE, 2, 5);
+		g.setFont(Asset.JoystixFont.deriveFont(5f));
+		Util.drawString(g,"Skor : " + SCORE, 2, 0);
+		Util.drawStringToRight(g, "Nyawa : " + HEALTH, 0);
 	
 		
 		// if isn't focused
-		if (!Game.isFocused()) {
+		if (!Game.isFocused() || isLost || isPaused) {
 			g.setColor(new Color(150,150,150,150));
 			g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		}
+		
+		if (isLost) {
+			int _LOST_OFFSET = 0;
+			g.setColor(Color.CYAN);
+			g.setFont(Asset.LunchtimeFont.deriveFont(15f));
+			Util.drawStringToCenter(g, "KAMU KALAH", _LOST_OFFSET += 50);
+			
+			g.setColor(Color.YELLOW);
+			g.setFont(Asset.JoystixFont.deriveFont(5f));
+			Util.drawStringToCenter(g, "Skor terakhir : " + Integer.toString(SCORE), _LOST_OFFSET += 15);
+			
+			g.setColor(Color.RED);
+			Util.drawStringToCenter(g, "Tekan <Enter> untuk kembali ke menu", _LOST_OFFSET += 15);
+		}
+		
 	}
 	
 	@Override
@@ -219,6 +262,15 @@ public class gameState extends State {
 			keys.put("RIGHT", true);
 		else if (keyCode == KeyEvent.VK_SPACE)
 			keys.put("SPACE", true);
+		
+		if (keyCode == KeyEvent.VK_ESCAPE && !keys.get("ESCAPE")) {
+			keys.put("ESCAPE", true);
+			isPaused = !isPaused;
+		} else if (keyCode == KeyEvent.VK_ENTER && isLost && !keys.get("ENTER")) {
+			keys.put("ENTER", true);
+			State.setState(State.MENU_STATE);
+			State.resetGameState();
+		}
 	}
 	
 	@Override
@@ -233,6 +285,12 @@ public class gameState extends State {
 			keys.put("RIGHT", false);
 		else if (keyCode == KeyEvent.VK_SPACE)
 			keys.put("SPACE", false);
+		
+		if (keyCode == KeyEvent.VK_ESCAPE && keys.get("ESCAPE"))
+			keys.put("ESCAPE", false);
+		else if (keyCode == KeyEvent.VK_ENTER && isLost && keys.get("ENTER")) {
+			keys.put("ENTER", false);
+		}
 	}
 	
 }
