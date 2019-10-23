@@ -42,6 +42,14 @@ public class Entity {
 		return y;
 	}
 	
+	public boolean isCollide(Entity entity) {
+		boolean upSide = this.getY() < entity.getY() + this.getHeight();
+		boolean downSide = this.getY() + this.getHeight() > entity.getY();
+		boolean rightSide = this.getX() + this.getWidth() > entity.getX();
+		boolean leftSide = this.getX() < entity.getX() + entity.getHeight();
+		return upSide && downSide && rightSide && leftSide;
+	}
+	
 	public void moveX(int x) {
 		this.x += x;
 	}
