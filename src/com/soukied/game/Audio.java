@@ -10,7 +10,6 @@ public class Audio {
 	private String fileName;
 	private Clip clip;
 	private boolean isRunning = false;
-	private Thread songThread;
 	private boolean isSfx = false;
 	private InputStream audioFile;
 	
@@ -35,44 +34,31 @@ public class Audio {
 	}
 	
 	public void play() {
-		if (isSfx) {
-			new Thread(new Runnable() {
-				public void run() {
-					try {						
-						Clip tempClip = AudioSystem.getClip();
-						tempClip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream(fileName)));
-						tempClip.start();
-					} catch(Exception e) {
-						e.printStackTrace();
-					}
-				}
-			}).start();
-			return;
+		if (isSfx) {				
+			try {
+				Clip tempClip = AudioSystem.getClip();
+				tempClip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream(fileName)));
+				tempClip.start();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return;
+			}					
 		}
 		if (isRunning && !isSfx) return;
-		songThread = new Thread(new Runnable() {
-			public void run() {
-				clip.start();
-				isRunning = true;
-			}
-		});
-		songThread.start();
+			clip.start();
+			isRunning = true;
 	}
 	
 	public void stop() {
 		if (!isRunning) return;
 		clip.stop();
+		clip.setFramePosition(0);
+		isRunning = false;
 	}
 	
 	public void pause() {
 		if (!isRunning) return;
-		try {
-			songThread.join();
 			clip.stop();
-			clip.setFramePosition(0);
 			isRunning = false;
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 }

@@ -15,9 +15,9 @@ public class helpState extends State {
 	private String out = "";
 	
 	@Override
-	public void init() {
-	
-		
+	public void init() {	
+		Asset.typeSound.setLoop();
+		Asset.typeSound.play();
 	}
 
 	int tick = 0;
@@ -25,8 +25,11 @@ public class helpState extends State {
 	@Override
 	public void update() {
 		if (tick % (int)(Game.FPS/50) == 0) {
-			if (charIndex < Asset.helpText.length()) 
+			if (charIndex < Asset.helpText.length()) {
 				out += Asset.helpText.charAt(charIndex++);
+			} else {
+				Asset.typeSound.stop();
+			}
 		}
 		tick++;
 	}
@@ -51,6 +54,7 @@ public class helpState extends State {
 		if (keyCode == KeyEvent.VK_ENTER && !KEY_ENTER) {
 			KEY_ENTER = true;
 			State.setState(State.MENU_STATE);
+			Asset.typeSound.stop();
 		}
 	}
 	

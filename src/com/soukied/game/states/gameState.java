@@ -31,6 +31,7 @@ public class gameState extends State {
 		Entity newBullet = new Entity(player.getX() + player.getWidth() / 2, player.getY());
 		newBullet.setSize(1, 6);
 		bullets.add(newBullet);
+		Asset.playerShootSound.play();
 	} 
 	
 	int getRandomVel() {
@@ -101,6 +102,7 @@ public class gameState extends State {
 				for (int j = 0; j < asteroids.size(); j++) {
 					Entity asteroid = asteroids.get(j);
 					if (asteroid.isCollide(bullet)) {
+						Asset.collideSound.play();
 						SCORE++;
 						asteroids.remove(j);
 						bullets.remove(i);
@@ -145,6 +147,7 @@ public class gameState extends State {
 			for (int i = 0; i < asteroids.size(); i++) {
 				Entity asteroid = asteroids.get(i);
 				if (player.isCollide(asteroid)) {
+					Asset.collideSound.play();
 					asteroids.remove(i);
 					HEALTH--;
 				}

@@ -14,7 +14,10 @@ public class Asset {
 	// audios
 	public static Audio menuSong = null;
 	public static Audio gameSong = null;
+	public static Audio typeSound = null;
+	public static Audio playerShootSound = null;
 	public static Audio optionSelectSound = null;
+	public static Audio collideSound = null;
 
 	
 	public static void Init() {
@@ -28,8 +31,11 @@ public class Asset {
 		// init audios
 		menuSong = new Audio("/audio/menu.wav");
 		gameSong = new Audio("/audio/game.wav");
+		typeSound = new Audio("/audio/type.wav");
+		playerShootSound = new Audio("/audio/player_shoot.wav", true);
 		optionSelectSound = new Audio("/audio/option_select.wav", true);
-	
+		collideSound = new Audio("/audio/collide.wav", true);
+		
 		isLoaded = true;
 	}
 }

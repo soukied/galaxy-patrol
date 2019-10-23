@@ -15,16 +15,17 @@ public class aboutState extends State {
 	private String print = "";
 	
 	public void init() {
-		
-		
+		Asset.typeSound.setLoop();
+		Asset.typeSound.play();
 	}
 
 	int tick = 0;
 	int charIndex = 0;
 	public void update() {
 		if(tick % (int)(Game.FPS/50) == 0) {
-			if (charIndex < Asset.aboutText.length()) 
+			if (charIndex < Asset.aboutText.length()) {
 				print += Asset.aboutText.charAt(charIndex++);
+			} else Asset.typeSound.stop();
 		}
 		
 			tick++;
@@ -51,6 +52,7 @@ public class aboutState extends State {
 		if (keyCode == KeyEvent.VK_ENTER && !ENTER_PRESSED) {
 			ENTER_PRESSED = true;
 			State.setState(MENU_STATE);
+			Asset.typeSound.stop();
 		}
 	}
 	
