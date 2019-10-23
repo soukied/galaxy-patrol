@@ -13,13 +13,11 @@ public class keyboardEv implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent event) {
-		// TODO Auto-generated method stub
 		State.getState().KeyUp(event.getKeyCode());
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
