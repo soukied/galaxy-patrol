@@ -25,6 +25,13 @@ public class gameState extends State {
 	private boolean isLost = false;
 	private boolean isPaused = false;
 	
+	// pause options
+	private final int
+	OPTION_RESUME = 0,
+	OPTION_EXIT = 1;
+	
+	private int currentPauseOption = OPTION_RESUME;
+	
 	private int HEALTH = 3;
 	
 	void shootBullet() {
@@ -55,8 +62,6 @@ public class gameState extends State {
 		Asset.gameSong.setLoop();
 		Asset.gameSong.play();
 		
-		Util.gamePrint("Permainan dimulai");
-		
 		// initialize player
 		int playerSize = 10;
 		player = new Entity((Game.WIDTH - playerSize) / 2, Game.HEIGHT - 20);
@@ -81,9 +86,6 @@ public class gameState extends State {
 
 	}
 	
-	int velX = getRandomVel();
-	int velY = getRandomVel();
-	
 	// player update
 	int tick = 0;
 	int bulletCooldown = 0;
@@ -91,8 +93,7 @@ public class gameState extends State {
 		if (Game.isFocused() && !isLost && !isPaused) {
 			
 			if (HEALTH < 1) isLost = true;
-			
-			tick++;
+				tick++;
 			
 			// player movement event		
 			for (int i = 0 ; i < bullets.size(); i++) {
@@ -131,7 +132,8 @@ public class gameState extends State {
 			// stars movement
 			for (int i = 0 ; i < stars.length; i++) {
 				Entity star = stars[i];
-				star.moveY(1);
+				if (stars.length > 0)
+					star.moveY(1);
 				if (star.getY() >= Game.HEIGHT) star.setY(-star.getHeight());
 			}
 			
@@ -141,7 +143,6 @@ public class gameState extends State {
 			if (keys.get("DOWN")) player.moveY(playerMovVel);
 			if (keys.get("RIGHT")) player.moveX(playerMovVel);
 			if (keys.get("LEFT")) player.moveX(playerMovVel * -1);
-		
 			
 			// collison checker
 			for (int i = 0; i < asteroids.size(); i++) {
@@ -163,19 +164,15 @@ public class gameState extends State {
 			
 			if (player.getX() < 0) {
 				player.setX(0);
-				velX *= -1;
 			}
 			if (player.getX() + player.getWidth() > Game.WIDTH) {
-				player.setX(Game.WIDTH - player.getWidth());
-				velX *= -1;
+				player.setX(Game.WIDTH - player.getWidth());	
 			}
 			if (player.getY() < 0) {
 				player.setY(0);
-				velY *= -1;
 			}
 			if (player.getY() + player.getHeight() > Game.HEIGHT) {
 				player.setY(Game.HEIGHT - player.getHeight());
-				velY *= -1;
 			}
 			
 			if (tick % (Game.FPS * 3 ) == 0) SCORE++;
@@ -251,30 +248,98 @@ public class gameState extends State {
 			Util.drawStringToCenter(g, "Tekan <Enter> untuk kembali ke menu", _LOST_OFFSET += 15);
 		}
 		
+		if (isPaused) {
+			int _PAUSE_OFFSET = 0;
+			g.setColor(Color.CYAN);
+			g.setFont(Asset.LunchtimeFont.deriveFont(15f));
+			Util.drawStringToCenter(g, "PERMAINAN BERHENTI", _PAUSE_OFFSET += 50);
+			
+			String RESUME_LABEL = "Lanjutkan";
+			if (currentPauseOption == OPTION_RESUME) RESUME_LABEL = "> " + RESUME_LABEL + " <";
+			g.setColor(Color.GREEN);
+			g.setFont(Asset.JoystixFont.deriveFont(5f));
+			Util.drawStringToCenter(g, RESUME_LABEL, _PAUSE_OFFSET += 20);
+			
+			String EXIT_LABEL = "Kembali";
+			if (currentPauseOption == OPTION_EXIT) EXIT_LABEL = "> " + EXIT_LABEL + " <";
+			g.setColor(Color.GREEN);
+			g.setFont(Asset.JoystixFont.deriveFont(5f));
+			Util.drawStringToCenter(g, EXIT_LABEL, _PAUSE_OFFSET += 15);
+			
+		}
+		
+		if (!Game.isFocused()) {
+			int _FOCUS_OFFSET = 0;
+			g.setColor(Color.ORANGE);
+			g.setFont(Asset.LunchtimeFont.deriveFont(15f));
+			Util.drawStringToCenter(g, "JEDA", _FOCUS_OFFSET += 50);
+			
+			g.setColor(Color.YELLOW);
+			g.setFont(Asset.JoystixFont.deriveFont(5f));
+			Util.drawStringToCenter(g, "Tekan layar untuk bermain kembali", _FOCUS_OFFSET += 20);
+		}
+		
+	}
+	
+	private void selectCurrentOption() {
+		if (currentPauseOption == OPTION_RESUME) {
+			currentPauseOption = OPTION_RESUME;
+			isPaused = false;
+		} else if (currentPauseOption == OPTION_EXIT) {
+			State.setState(State.MENU_STATE);
+			State.resetGameState();
+		}
 	}
 	
 	@Override
 	public void KeyDown(int keyCode) {
-		if (keyCode == KeyEvent.VK_UP) 
+		if (keyCode == KeyEvent.VK_UP) {
+			if (!keys.get("UP") && isPaused)
+				optionUp();
 			keys.put("UP", true);
+		}
 		else if (keyCode == KeyEvent.VK_LEFT) 
 			keys.put("LEFT", true);
-		else if (keyCode == KeyEvent.VK_DOWN)
+		else if (keyCode == KeyEvent.VK_DOWN) {
+			if (!keys.get("DOWN") && isPaused)
+				optionDown();
 			keys.put("DOWN", true);
+		}
 		else if (keyCode == KeyEvent.VK_RIGHT)
 			keys.put("RIGHT", true);
 		else if (keyCode == KeyEvent.VK_SPACE)
 			keys.put("SPACE", true);
 		
+		if (!keys.get("ENTER") && isPaused) {
+			
+		}
+		
 		if (keyCode == KeyEvent.VK_ESCAPE && !keys.get("ESCAPE")) {
 			keys.put("ESCAPE", true);
-			isPaused = !isPaused;
-		} else if (keyCode == KeyEvent.VK_ENTER && isLost && !keys.get("ENTER")) {
-			keys.put("ENTER", true);
-			Asset.gameSong.stop();
-			State.setState(State.MENU_STATE);
-			State.resetGameState();
+			isPaused = true;
+		} else if (keyCode == KeyEvent.VK_ENTER && !keys.get("ENTER")) {
+			if (isLost) {				
+				keys.put("ENTER", true);
+				Asset.gameSong.stop();
+				State.setState(State.MENU_STATE);
+				State.resetGameState();
+			} else if (isPaused) {
+				selectCurrentOption();
+			}
 		}
+		
+	}
+	
+	private void optionUp() {
+		this.currentPauseOption--;
+		if (this.currentPauseOption < OPTION_RESUME) this.currentPauseOption = OPTION_RESUME;
+		else Asset.optionSelectSound.play();
+	}
+	
+	private void optionDown() {
+		this.currentPauseOption++;
+		if (this.currentPauseOption > OPTION_EXIT) this.currentPauseOption = OPTION_EXIT;
+		else Asset.optionSelectSound.play();
 	}
 	
 	@Override
@@ -289,6 +354,10 @@ public class gameState extends State {
 			keys.put("RIGHT", false);
 		else if (keyCode == KeyEvent.VK_SPACE)
 			keys.put("SPACE", false);
+		
+		if (keyCode == KeyEvent.VK_ENTER && keys.get("ENTER") && isPaused) {
+			keys.put("ENTER", false);
+		}
 		
 		if (keyCode == KeyEvent.VK_ESCAPE && keys.get("ESCAPE"))
 			keys.put("ESCAPE", false);
