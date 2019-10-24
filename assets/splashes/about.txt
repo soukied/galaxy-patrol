@@ -2,16 +2,16 @@
 // Adhya Adam Sulthan [11191003] sebagai bagian
 // dari rangkaian kegiatan expo kampus ITK.
 
+// Dikembangkan dengan bahasa pemrograman
+// Java tanpa menggunakan library atau
+// game engine.
+
 // Booth INFORMATIKA 19.
 
 // Instagram : @shtty_head
 // GitHub    : soukied
 // Discord   : soukied#3969
 // Steam     : soukied 
-
-// Dikembangkan dengan bahasa pemrograman
-// Java tanpa menggunakan library atau
-// game engine.
 
 while(!success) {
     try {

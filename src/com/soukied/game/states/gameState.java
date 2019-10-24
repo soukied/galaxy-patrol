@@ -251,19 +251,18 @@ public class gameState extends State {
 		if (isPaused) {
 			int _PAUSE_OFFSET = 0;
 			g.setColor(Color.CYAN);
-			g.setFont(Asset.LunchtimeFont.deriveFont(15f));
+			g.setFont(Asset.LunchtimeFont.deriveFont(13f));
 			Util.drawStringToCenter(g, "PERMAINAN BERHENTI", _PAUSE_OFFSET += 50);
 			
+			g.setFont(Asset.JoystixFont.deriveFont(7f));
 			String RESUME_LABEL = "Lanjutkan";
 			if (currentPauseOption == OPTION_RESUME) RESUME_LABEL = "> " + RESUME_LABEL + " <";
-			g.setColor(Color.GREEN);
-			g.setFont(Asset.JoystixFont.deriveFont(5f));
-			Util.drawStringToCenter(g, RESUME_LABEL, _PAUSE_OFFSET += 20);
+			g.setColor(currentPauseOption == OPTION_RESUME?new Color(255, 0, 0):new Color(150, 0, 0));
+			Util.drawStringToCenter(g, RESUME_LABEL, _PAUSE_OFFSET += 25);
 			
 			String EXIT_LABEL = "Kembali";
 			if (currentPauseOption == OPTION_EXIT) EXIT_LABEL = "> " + EXIT_LABEL + " <";
-			g.setColor(Color.GREEN);
-			g.setFont(Asset.JoystixFont.deriveFont(5f));
+			g.setColor(currentPauseOption == OPTION_EXIT?new Color(255, 0, 0):new Color(150, 0, 0));
 			Util.drawStringToCenter(g, EXIT_LABEL, _PAUSE_OFFSET += 15);
 			
 		}
@@ -286,6 +285,7 @@ public class gameState extends State {
 			currentPauseOption = OPTION_RESUME;
 			isPaused = false;
 		} else if (currentPauseOption == OPTION_EXIT) {
+			Asset.gameSong.stop();
 			State.setState(State.MENU_STATE);
 			State.resetGameState();
 		}

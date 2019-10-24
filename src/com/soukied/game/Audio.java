@@ -1,5 +1,6 @@
 package com.soukied.game;
 
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 
 import javax.sound.sampled.AudioSystem;
@@ -16,7 +17,7 @@ public class Audio {
 	public Audio(String filename) {
 		this.fileName = filename;
 		try {
-			audioFile = getClass().getResourceAsStream(filename);
+			audioFile = new BufferedInputStream(getClass().getResourceAsStream(filename));
 			clip = AudioSystem.getClip();
 			clip.open(AudioSystem.getAudioInputStream(audioFile));
 		} catch (Exception e) {
@@ -37,7 +38,7 @@ public class Audio {
 		if (isSfx) {				
 			try {
 				Clip tempClip = AudioSystem.getClip();
-				tempClip.open(AudioSystem.getAudioInputStream(getClass().getResourceAsStream(fileName)));
+				tempClip.open(AudioSystem.getAudioInputStream(new BufferedInputStream(getClass().getResourceAsStream(fileName))));
 				tempClip.start();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -50,14 +51,14 @@ public class Audio {
 	}
 	
 	public void stop() {
-		if (!isRunning) return;
+		if (!isRunning || isSfx) return;
 		clip.stop();
 		clip.setFramePosition(0);
 		isRunning = false;
 	}
 	
 	public void pause() {
-		if (!isRunning) return;
+		if (!isRunning || isSfx) return;
 			clip.stop();
 			isRunning = false;
 	}

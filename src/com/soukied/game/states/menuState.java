@@ -34,8 +34,9 @@ public class menuState extends State {
 	
 	private void optionEnter() {
 		if (currentOption == OPTION_START) {
-			State.setState(State.GAME_STATE);
 			Asset.menuSong.stop();
+			//State.resetGameState();
+			State.setState(State.GAME_STATE);
 		}
 		else if (currentOption == OPTION_HELP) {
 			State.resetHelpState();
