@@ -89,6 +89,7 @@ public class gameState extends State {
 	// player update
 	int tick = 0;
 	int bulletCooldown = 0;
+	@Override
 	public void update() {
 		if (Game.isFocused() && !isLost && !isPaused) {
 			
@@ -188,6 +189,7 @@ public class gameState extends State {
 		return new Color(randomRed, randomGreen, randomBlue);
 	}
 	
+	@Override
 	public void render(Graphics2D g) {
 		
 		// background render

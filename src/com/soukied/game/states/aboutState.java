@@ -14,6 +14,7 @@ public class aboutState extends State {
 	private boolean ENTER_PRESSED = true;
 	private String print = "";
 	
+	@Override
 	public void init() {
 		Asset.typeSound.setLoop();
 		Asset.typeSound.play();
@@ -21,6 +22,7 @@ public class aboutState extends State {
 
 	int tick = 0;
 	int charIndex = 0;
+	@Override
 	public void update() {
 		if(tick % (int)(Game.FPS/50) == 0) {
 			if (charIndex < Asset.aboutText.length()) {
@@ -31,6 +33,7 @@ public class aboutState extends State {
 			tick++;
 	}
 
+	@Override
 	public void render(Graphics2D g) {
 		g.setColor(Color.BLUE);
 		g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
