@@ -1,14 +1,31 @@
 package com.soukied.game;
 
+import java.awt.image.BufferedImage;
+
 public class Entity {
 
-	private int x, y;
-	private int width = 10;
-	private int height = 10;
+	private int x = 0, y = 0;
+	private int width = 1;
+	private int height = 1;
+	private BufferedImage sprite = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 	
 	public Entity(int x, int y) {
-		this.x = x;
-		this.y = y;
+		setCord(x, y);
+	}
+	
+	public Entity(BufferedImage sprite, int x, int y) {
+		this(x, y);
+		embedImage(sprite);
+	}
+	
+	public Entity(BufferedImage sprite) {
+		embedImage(sprite);
+	}
+	
+	public void embedImage(BufferedImage sprite) {
+		this.sprite = sprite;
+		this.width = this.sprite.getWidth();
+		this.height = this.sprite.getHeight();
 	}
 	
 	public void setSize(int size) {
@@ -65,4 +82,9 @@ public class Entity {
 	public void setY(int y) {
 		this.y = y;
 	}
+	
+	public void setCord(int x, int y) {
+		this.x = x;
+		this.y = y;
+	} 
 }
